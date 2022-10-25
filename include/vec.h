@@ -19,9 +19,9 @@ public:
 
   Vec3(const Vec3 &v) : x(v.x), y(v.y), z(v.z) {}
 
-  double length_sqrd() { return x * x + y * y + z * z; }
+  double length_sqrd() const { return x * x + y * y + z * z; }
 
-  double length() { return std::sqrt(length_sqrd()); }
+  double length() const { return std::sqrt(length_sqrd()); }
 
   Vec3 operator-() const { return Vec3(-x, -y, -z); }
 
@@ -43,15 +43,15 @@ public:
 
   void normalize() { *this /= length(); }
 
-  Vec3 normalized() {
+  Vec3 normalized() const {
     Vec3 v(*this);
     v /= length();
     return v;
   }
 
-  double dot(const Vec3 &v) { return x * v.x + y * v.y + z * v.z; }
+  double dot(const Vec3 &v) const { return x * v.x + y * v.y + z * v.z; }
 
-  Vec3 cross(const Vec3 &v) {
+  Vec3 cross(const Vec3 &v) const {
     return Vec3(y * v.z - v.y * z, z * v.x - x * v.z, x * v.y - y * v.x);
   };
 };
