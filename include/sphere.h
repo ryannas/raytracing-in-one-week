@@ -5,16 +5,16 @@
 #include "vec.h"
 
 class Sphere : public Hittable {
-    public:
-        Sphere() {}
-        Sphere(const Vec3& cen, double r) : center(cen), radius(r) {};
+public:
+    Sphere() {}
+    Sphere(const Vec3& cen, double r) : center(cen), radius(r) {};
 
-        virtual bool hit(
-            const Ray& r, double t_min, double t_max, HitRecord& rec) const override;
+    virtual bool hit(
+        const Ray& r, double t_min, double t_max, HitRecord& rec) const override;
 
-    public:
-        Vec3 center;
-        double radius;
+public:
+    Vec3 center;
+    double radius;
 };
 
 bool Sphere::hit(const Ray& r, double t_min, double t_max, HitRecord& rec) const {
@@ -37,7 +37,8 @@ bool Sphere::hit(const Ray& r, double t_min, double t_max, HitRecord& rec) const
 
     rec.t = root;
     rec.p = r.at(rec.t);
-    rec.n = (rec.p - center) / radius;
+    Vec3 outward_normal = (rec.p - center) / radius;
+    rec.setFaceNormal(r, outward_normal);
 
     return true;
 }
