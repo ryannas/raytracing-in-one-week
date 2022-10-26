@@ -4,11 +4,22 @@
 
 #include <iostream>
 
+bool rayIntersectSphere(const Ray& ray, const Vec3& c, double r) {
+    auto a_ = ray.dir.length_sqrd();
+    auto oc = ray.origin - c;
+    auto b_ = 2 * ray.dir.dot(oc);
+    auto c_ = oc.length_sqrd() - r * r;
+    auto delta = b_ * b_ - 4 * a_ * c_;
+    return delta > 0;
+}
+
 color ray_color(const Ray& r) {
+    if (rayIntersectSphere(r, Vec3(0, 0, -1), 0.5))
+        return color(1, 0, 0);
     Vec3 u_dir = r.dir.normalized();
     auto t = 0.5 * (u_dir.y + 1.0);
     return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
-}
+} 
 
 int main() {
     const auto aspect_ratio = 16.0 / 9.0;
