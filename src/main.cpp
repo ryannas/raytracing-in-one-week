@@ -1,29 +1,19 @@
 #include "../include/color.h"
 #include "../include/ray.h"
 #include "../include/vec.h"
+#include "../include/sphere.h"
 
 #include <iostream>
 #include <cmath>
-
-double rayIntersectSphere(const Ray& ray, const Vec3& c, double r) {
-    auto a_ = ray.dir.length_sqrd();
-    auto oc = ray.origin - c;
-    auto b_ = 2 * ray.dir.dot(oc);
-    auto c_ = oc.length_sqrd() - r * r;
-    auto delta = b_ * b_ - 4 * a_ * c_;
-    if (delta < 0)
-        return -1.0;
-    return (-b_ - sqrt(delta)) / (2.0 * a_);
-}
+#include <limits>
 
 color ray_color(const Ray& r) {
-    auto t = rayIntersectSphere(r, Vec3(0, 0, -1), 0.5);
-    if (t > 0.0) {
-        Vec3 n = (r.at(t) - Vec3(0, 0, -1)).normalized();
-        return 0.5 * color(n.x+1, n.y+1, n.z+1);
-    }
+    Sphere sphere(Vec3(0, 0, -1), 0.5);
+    HitRecord rec;
+    if (sphere.hit(r, 0, MAXFLOAT, rec))
+        return 0.5 * color(rec.n.x+1, rec.n.y+1, rec.n.z+1);
     Vec3 u_dir = r.dir.normalized();
-    t = 0.5 * (u_dir.y + 1.0);
+    auto t = 0.5 * (u_dir.y + 1.0);
     return (1.0 - t) * color(1.0, 1.0, 1.0) + t * color(0.5, 0.7, 1.0);
 } 
 
