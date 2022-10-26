@@ -13,7 +13,7 @@ public:
         :origin(o), dir(d) {
     }
 
-    Vec3 at(double t) {
+    Vec3 at(double t) const {
         return origin + t * dir;
     }
 };
