@@ -6,6 +6,8 @@
 #include <memory>
 #include <random>
 
+#include "vec.h"
+
 using std::shared_ptr;
 using std::make_shared;
 using std::sqrt;
@@ -25,6 +27,26 @@ inline double random_double() {
 
 inline double random_double(double min, double max) {
     return min + (max - min) * random_double();
+}
+
+inline Vec3 random_vec3() {
+    return Vec3(random_double(), random_double(), random_double());
+}
+
+inline Vec3 random_vec3(double min, double max) {
+    return Vec3(
+        random_double(min, max),
+        random_double(min, max),
+        random_double(min, max)
+    );
+}
+
+Vec3 random_in_unit_sphere() {
+    while (true) {
+        auto p = random_vec3(-1, 1);
+        if (p.length_sqrd() >= 1) continue;
+        return p;
+    }
 }
 
 inline double clamp(double x, double min, double max) {
