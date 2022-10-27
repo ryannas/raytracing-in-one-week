@@ -8,12 +8,12 @@
 
 #include <iostream>
 
-color ray_color(const Ray& r, const HittableList& world, int depth) {
+color rayCast(const Ray& r, const HittableList& world, int depth) {
     HitRecord rec;
     if (depth <= 0) return color(0, 0, 0);
     if (world.hit(r, 0, infinity, rec)) {
         point3 target = rec.p + rec.n + random_in_unit_sphere();
-        return 0.5 * ray_color(Ray(rec.p, target - rec.p), world, depth - 1);
+        return 0.5 * rayCast(Ray(rec.p, target - rec.p), world, depth - 1);
     }
     Vec3 u_dir = r.dir.normalized();
     auto t = 0.5 * (u_dir.y + 1.0);
@@ -46,7 +46,7 @@ int main() {
                 auto u = (i + random_double()) / (image_width - 1);
                 auto v = (j + random_double()) / (image_height - 1);
                 Ray r = camera.shootRay(u, v);
-                pixel_color += ray_color(r, world, max_depth);
+                pixel_color += rayCast(r, world, max_depth);
             }
             write_color(std::cout, pixel_color, samples_per_pixel);
         }
