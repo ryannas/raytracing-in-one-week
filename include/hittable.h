@@ -3,10 +3,15 @@
 
 #include "ray.h"
 
+#include <memory>
+
+class Material;
+
 struct HitRecord {
     Vec3 p;
     Vec3 n;
     double t;
+    std::shared_ptr<Material> mat_ptr;
     bool front_face;
 
     inline void setFaceNormal(const Ray& r, const Vec3& outward_normal) {

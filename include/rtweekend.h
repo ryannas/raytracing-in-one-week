@@ -70,5 +70,6 @@ inline double clamp(double x, double min, double max) {
 #include "vec.h"
 
 using point3 = Vec3;
+using color = Vec3;
 
 #endif

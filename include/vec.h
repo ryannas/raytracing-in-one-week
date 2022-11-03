@@ -62,6 +62,11 @@ public:
   Vec3 cross(const Vec3 &v) const {
     return Vec3(y * v.z - v.y * z, z * v.x - x * v.z, x * v.y - y * v.x);
   };
+
+  bool near_zero() {
+      const float delta = 1e-8;
+      return ((fabs(x) < delta) && (fabs(y) < delta) && (fabs(z) < delta));
+  }
 };
 
 std::ostream &operator<<(std::ostream &out, const Vec3 &v) {
@@ -87,6 +92,10 @@ Vec3 operator*(const Vec3 &u, double t) {
 Vec3 operator/(const Vec3 &u, double t) { return u * (1 / t); }
 
 Vec3 operator*(double t, const Vec3 &u) { return u * t; }
+
+Vec3 reflect(const Vec3& v, const Vec3& n) {
+    return (v - 2 * v.dot(n) * n);
+}
 
 class Vec4 {
 public:
