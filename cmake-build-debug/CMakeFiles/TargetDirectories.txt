@@ -1,0 +1,3 @@
+/home/ryan/Documents/learn/raytracing-in-one-week/cmake-build-debug/CMakeFiles/run_it.dir
+/home/ryan/Documents/learn/raytracing-in-one-week/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/ryan/Documents/learn/raytracing-in-one-week/cmake-build-debug/CMakeFiles/rebuild_cache.dir

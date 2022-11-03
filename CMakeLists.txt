@@ -11,3 +11,6 @@ add_executable(run_it ${source})
 target_include_directories(run_it PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
+find_package(TBB)
+target_link_libraries(run_it PUBLIC TBB::tbb )

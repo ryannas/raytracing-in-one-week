@@ -41,6 +41,14 @@ public:
 
   Vec3 &operator/=(const double t) { return *this *= 1 / t; }
 
+  bool operator==(const Vec3& v) const {
+      return x == v.x && y == v.y && z == v.z;
+  }
+
+  bool operator!=(const Vec3& v) const {
+      return !(*this==v);
+  }
+
   void normalize() { *this /= length(); }
 
   Vec3 normalized() const {
