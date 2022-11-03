@@ -1,14 +1,11 @@
-#include "../include/rtweekend.h"
+#include "rtweekend.h"
+#include "color.h"
+#include "hittable_list.h"
+#include "sphere.h"
+#include "ppm.h"
+#include "camera.h"
 
-#include "../include/color.h"
-#include "../include/hittable_list.h"
-#include "../include/sphere.h"
-
-#include "../include/camera.h"
-
-#ifdef USE_TBB
 #include <tbb/parallel_for.h>
-#endif
 
 #include <iostream>
 
@@ -40,7 +37,8 @@ int main() {
     world.add(make_shared<Sphere>(point3(0, 0, -1), 0.5));
     world.add(make_shared<Sphere>(point3(0, -100.5, -1), 100));
 
-    std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";
+    // construct image
+    PPM image(image_width, image_height, samples_per_pixel);
 
     for (int j = image_height - 1; j >= 0; --j) {
         std::cerr << "\rScanlines remaining: " << j << " " << std::flush;
@@ -52,10 +50,11 @@ int main() {
                 Ray r = camera.shootRay(u, v);
                 pixel_color += rayCast(r, world, max_depth);
             }
-            write_color(std::cout, pixel_color, samples_per_pixel);
+            image.shade(i, j, pixel_color);
         }
     }
-
+    std::cerr << "writing to file...\n";
+    image.write_to_file();
     std::cerr << "\nDone.\n";
     return 0;
 }
