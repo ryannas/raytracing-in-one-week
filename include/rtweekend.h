@@ -53,6 +53,13 @@ Vec3 random_unit_vector() {
     return random_in_unit_sphere().normalized();
 }
 
+Vec3 random_in_hemisphere(const Vec3& normal) {
+    auto in_unit_sphere = random_in_unit_sphere();
+    if (normal.dot(in_unit_sphere) > 0.0)
+        return in_unit_sphere;
+    return -in_unit_sphere;
+}
+
 inline double clamp(double x, double min, double max) {
     if (x < min) return min;
     if (x > max) return max;
