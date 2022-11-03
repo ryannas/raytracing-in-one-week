@@ -49,6 +49,10 @@ Vec3 random_in_unit_sphere() {
     }
 }
 
+Vec3 random_unit_vector() {
+    return random_in_unit_sphere().normalized();
+}
+
 inline double clamp(double x, double min, double max) {
     if (x < min) return min;
     if (x > max) return max;
