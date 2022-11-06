@@ -97,6 +97,13 @@ Vec3 reflect(const Vec3& v, const Vec3& n) {
     return (v - 2 * v.dot(n) * n);
 }
 
+Vec3 refract(const Vec3& uv, const Vec3& n, double etai_over_etat) {
+    auto cos_theta = fmin(n.dot(-uv), 1.0);
+    Vec3 r_out_perp =  etai_over_etat * (uv + cos_theta*n);
+    Vec3 r_out_parallel = -sqrt(fabs(1.0 - r_out_perp.length_sqrd())) * n;
+    return r_out_perp + r_out_parallel;
+}
+
 class Vec4 {
 public:
   double x;

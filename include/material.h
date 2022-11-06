@@ -45,4 +45,24 @@ public:
     }
 };
 
+class Dielectric : public Material {
+public:
+    double ir;
+
+    Dielectric(double index_of_refraction) : ir(index_of_refraction) {}
+
+    virtual bool scatter(
+            const Ray& r_in, const HitRecord& rec, color& attenuation, Ray& scattered
+    ) const override {
+        attenuation = color(1.0, 1.0, 1.0);
+        double refraction_ratio = rec.front_face ? (1.0/ir) : ir;
+
+        Vec3 unit_direction = r_in.dir.normalized();
+        Vec3 refracted = refract(unit_direction, rec.n, refraction_ratio);
+
+        scattered = Ray(rec.p, refracted);
+        return true;
+    }
+};
+
 #endif //MATERIAL_H
