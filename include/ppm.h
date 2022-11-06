@@ -27,7 +27,7 @@ public:
     void shade(int i, int j, const color& c) {
         ppm[i][j] = c;
         comp++;
-        // std::cerr << "\rcomplete " << comp / width / height * 100 << "% " << std::flush;
+        std::cerr << "\rcomplete " << comp / 1.0 / width / height * 100 << "% " << std::flush;
     }
 
     void write_to_file(const std::string& file_name = "output.ppm") {
