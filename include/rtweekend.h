@@ -66,6 +66,10 @@ inline double clamp(double x, double min, double max) {
     return x;
 }
 
+inline double degree_to_radians(double degree) {
+    return (degree / 180.) * pi;
+}
+
 #include "ray.h"
 #include "vec.h"
 

@@ -16,6 +16,20 @@ public:
         vertical = Vec3(0.0, viewport_height, 0.0);
         lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3(0.0, 0.0, focal_length);
     }
+
+    Camera(double f, double ar) : fov(f), aspect_ratio(ar) {
+        auto theta = degree_to_radians(fov);
+        auto h = tan(theta / 2);
+        auto viewport_height = 2 * h;
+        auto viewport_width = aspect_ratio * viewport_height;
+
+        auto focal_length = 1.0;
+
+        origin = point3(0, 0, 0);
+        horizontal = Vec3(viewport_width, 0.0, 0.0);
+        vertical = Vec3(0.0, viewport_height, 0.0);
+        lower_left_corner = origin - horizontal / 2 - vertical / 2 - Vec3(0.0, 0.0, focal_length);
+    }
     
     Ray shootRay(double u, double v) {
         return Ray(origin, lower_left_corner + u * horizontal + v * vertical - origin);
@@ -29,6 +43,7 @@ private:
     point3 lower_left_corner;
     Vec3 horizontal;
     Vec3 vertical;
+    double fov;
     double aspect_ratio;
 };
 

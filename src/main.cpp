@@ -65,7 +65,7 @@ struct tbb_shading{
 
 int main() {
     // construct camera
-    Camera camera;
+    Camera camera(90.0, 16. / 9.);
 
     // prepare frame
     const auto aspect_ratio = camera.getAspectRatio();
@@ -85,6 +85,7 @@ int main() {
     world.add(make_shared<Sphere>(point3(0, 0, -1), 0.5, material_center));
     world.add(make_shared<Sphere>(point3(0, -100.5, -1), 100, material_ground));
     world.add(make_shared<Sphere>(point3(-1.0, 0.0, -1.0), 0.5, material_left));
+    world.add(make_shared<Sphere>(point3(-1.0, 0.0, -1.0), -0.45, material_left));
     world.add(make_shared<Sphere>(point3( 1.0, 0.0, -1.0), 0.5, material_right));
 
     // construct image
