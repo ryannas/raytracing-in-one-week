@@ -65,7 +65,7 @@ struct tbb_shading{
 
 int main() {
     // construct camera
-    Camera camera(90.0, 16. / 9.);
+    Camera camera(point3(-2,2,1), point3(0,0,-1), Vec3(0,1,0), 20.0, 16.0 / 9.0);
 
     // prepare frame
     const auto aspect_ratio = camera.getAspectRatio();
